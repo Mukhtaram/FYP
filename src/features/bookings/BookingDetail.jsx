@@ -17,6 +17,7 @@ import { HiArrowDownOnSquare } from "react-icons/hi2";
 import { useCheckout } from "../check-in-out/useCheckout";
 import Modal from "../../ui/Modal";
 import { useDeleteBooking } from "./useDeleteBooking";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -27,11 +28,11 @@ const HeadingGroup = styled.div`
 function BookingDetail() {
   const { booking, isLoading } = useBooking()
   const { checkout, isCheckingOut } = useCheckout()
-  // eslint-disable-next-line no-unused-vars
   const { deleteBooking, isDeleteBooking } = useDeleteBooking()
   const moveBack = useMoveBack();
   const navigate = useNavigate()
   if (isLoading) return <Spinner />
+  if (!booking) return <Empty resourceName='booking' />
   const { status, id: bookingId } = booking;
   const statusToTagName = {
     unconfirmed: "blue",
