@@ -126,3 +126,46 @@ export async function deleteBooking(id) {
   }
   return data;
 }
+export async function createEditBooking(newBooking, id) {
+  // sample image URL: https://dsqtriwwhcghewiejevj.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
+
+  let query = supabase.from("bookings");
+
+  // create
+  if (!id) query = query.insert([{ ...newBooking }]);
+
+  // edit
+  if (id)
+    query = query
+      .update({ ...newBooking })
+      .eq("id", id)
+      .select();
+
+  const { data, error } = await query.select().single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("Booking could not be created.");
+  }
+
+  return data;
+}
+export async function getGuests() {
+  const { data, error } = await supabase.from("guests").select("*");
+
+  if (error) {
+    console.log(error);
+    throw new Error("Guests could not be retrieved.");
+  }
+
+  return data;
+}
+export async function createGuestApi(newGuest) {
+  let query = supabase.from("guests").insert([{ ...newGuest }]);
+  const { data, error } = await query.select().single();
+  if (error) {
+    console.log(error);
+    throw new Error("Guest could not be created.");
+  }
+  return data;
+}

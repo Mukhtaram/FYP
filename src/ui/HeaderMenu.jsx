@@ -18,6 +18,7 @@ function HeaderMenu() {
                 <ButtonIcon onClick={() => navigate("/account")}>
                     <HiOutlineUser />
                 </ButtonIcon>
+
             </li>
             <li>
                 <DarkModeToggle />
@@ -29,3 +30,4 @@ function HeaderMenu() {
     )
 }
 export default HeaderMenu;
+

@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { PieChart, Legend, Cell, Pie, ResponsiveContainer, Tooltip } from "recharts";
 import styled from "styled-components";
-import Heading from "../../ui/Heading";
 import { useDarkMode } from "../../context/DarkModeContext";
+import DashboardHeader from "../../ui/DashboardHeader";
 
 const ChartBox = styled.div`
   /* Box */
@@ -109,7 +108,6 @@ const startDataDark = [
 ];
 
 function prepareData(startData, stays) {
-  // A bit ugly code, but sometimes this is what it takes when working with real data 😅
 
   function incArrayValue(arr, field) {
     return arr.map((obj) =>
@@ -142,7 +140,7 @@ function DurationChart({ confirmedStays }) {
   const data = prepareData(startData, confirmedStays)
   return (
     <ChartBox>
-      <Heading as='h2'> Stay duration summary</Heading>
+      <DashboardHeader>Stay duration summary</DashboardHeader>
       <ResponsiveContainer width='100%' height={240}>
         <PieChart>
           <Pie

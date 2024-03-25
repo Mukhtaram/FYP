@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import useTodayActivity from "./useTodayActivity"
-
-
-import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
 import Spinner from "../../ui/Spinner";
 import TodayItem from "./TodayItem";
+import DashboardHeader from "../../ui/DashboardHeader"
+
 
 const StyledToday = styled.div`
-  /* Box */
   background-color: var(--color-grey-0);
   border: 1px solid var(--color-grey-100);
   border-radius: var(--border-radius-md);
@@ -25,7 +23,6 @@ const TodayList = styled.ul`
   overflow: scroll;
   overflow-x: hidden;
 
-  /* Removing scrollbars for webkit, firefox, and ms, respectively */
   &::-webkit-scrollbar {
     width: 0 !important;
   }
@@ -45,7 +42,8 @@ function TodayActivity() {
   return (
     <StyledToday>
       <Row type="horizontal">
-        <Heading as="h2">Today</Heading>
+        <DashboardHeader>Today</DashboardHeader>
+
       </Row>
 
       {!isLoading ? (
