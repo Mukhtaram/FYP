@@ -2,7 +2,7 @@ import UpdateSettingsForm from "../features/settings/UpdateSettingsForm";
 import Heading from "../ui/Heading";
 import MainHeading from "../ui/MainHeading";
 import Row from "../ui/Row"
-//import { HiOutlineCog6Tooth } from 'react-icons/hi2'
+import { HiOutlineCog6Tooth } from 'react-icons/hi2'
 
 
 function Settings() {
@@ -10,7 +10,7 @@ function Settings() {
     <Row>
       <MainHeading>
         <Heading as="h1">
-          Update hotel settings
+          <HiOutlineCog6Tooth size="31px" /><span>Update hotel settings</span>
         </Heading>
       </MainHeading>
       <UpdateSettingsForm />
@@ -19,4 +19,3 @@ function Settings() {
 }
 
 export default Settings;
-{        /*  <HiOutlineCog6Tooth size="35px" {{ marginRight: '8px' }} /><span>Update hotel settings</span>*/ }

@@ -2,6 +2,7 @@ import DashboardFilter from "../features/dashboard/DashboardFilter";
 import DashboardLayout from "../features/dashboard/DashboardLayout";
 import Heading from "../ui/Heading";
 import MainHeading from "../ui/MainHeading";
+import { HiOutlineHome } from 'react-icons/hi2'
 
 
 function Dashboard() {
@@ -9,7 +10,7 @@ function Dashboard() {
     <>
       <MainHeading>
         <Heading as="h1">
-          Dashboard
+          <HiOutlineHome size="31px" style={{ marginRight: '8px' }} /><span>Dashboard</span>
         </Heading>
         <DashboardFilter />
       </MainHeading>
