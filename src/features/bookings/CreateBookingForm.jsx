@@ -368,7 +368,7 @@ function CreateBookingForm({ onCloseModal }) {
 
 export default CreateBookingForm;
 */}
-
+{/*
 import { useEffect } from "react";
 import React, { useState, useContext } from 'react';
 import { useFieldArray } from "react-hook-form";
@@ -537,6 +537,7 @@ function CreateBookingForm() {
                 label: guest.fullName,
             })),
     ];*/}
+{/*
     const numGuestInput = watch("numGuests");
     const hasBreakfast = watch("hasBreakfast");
     const isPaid = watch("isPaid");
@@ -1189,8 +1190,7 @@ function CreateBookingForm() {
 }
 
 export default CreateBookingForm;
-
-{/*
+*/}
 import { useEffect } from "react";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -1514,7 +1514,7 @@ function CreateBookingForm() {
                 </ButtonText>
             </div>
 
-            <Row type="form">
+            <Row type="form" style={{ justifyContent: 'flex-start', textAlign: 'left' }}>
                 <Heading as="h1">
                     <span>
                         <HiOutlineSquare3Stack3D />
@@ -2000,4 +2000,4 @@ function CreateBookingForm() {
     );
 }
 
-export default CreateBookingForm;*/}
+export default CreateBookingForm;
