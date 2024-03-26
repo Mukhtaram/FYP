@@ -1,17 +1,18 @@
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
-import { createGuestApi } from "../../services/apiBookings";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createGuest as createGuestApi } from "../../services/apiGuests";
+import toast from "react-hot-toast";
 
 export function useCreateGuest() {
     const queryClient = useQueryClient();
 
-    const { mutate: createGuest, isLoading: isCreating } = useMutation({
+    const { isLoading: isCreating, mutate: createGuest } = useMutation({
         mutationFn: createGuestApi,
         onSuccess: () => {
-            toast.success("New guest created successfully");
-            queryClient.invalidateQueries({ queryKey: ["guests"] });
+            queryClient.invalidateQueries({
+                queryKey: ["guests"],
+            });
         },
-        onError: (error) => toast.error(error.message),
+        onError: (err) => toast.error(err.message),
     });
 
     return { createGuest, isCreating };

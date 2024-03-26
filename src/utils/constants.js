@@ -1,6 +1,6 @@
 export const PAGE_SIZE = 10;
-{/*
-    export const screenSizes = {
+
+export const screenSizes = {
     mobile: "320px",
     tablet: "768px",
     laptop: "1024px",
@@ -42,4 +42,3 @@ export const modifiersStylesDatePicker = {
         },
     },
 };
-*/}

@@ -1,5 +1,4 @@
-import { differenceInDays, formatDistance, parseISO } from 'date-fns';
-
+import { add, differenceInDays, formatDistance, parseISO } from 'date-fns';
 
 // We want to make this function work for both Date objects and strings (which come from Supabase)
 export const subtractDates = (dateStr1, dateStr2) =>
@@ -16,7 +15,6 @@ export const formatDistanceFromNow = (dateStr) =>
 export const getToday = function (options = {}) {
   const today = new Date();
 
-  // This is necessary to compare with created_at from Supabase, because it it not at 0.0.0.0, so we need to set the date to be END of the day when we compare it with earlier dates
   if (options?.end)
     // Set to the last second of the day
     today.setUTCHours(23, 59, 59, 999);
@@ -28,3 +26,14 @@ export const formatCurrency = (value) =>
   new Intl.NumberFormat('en', { style: 'currency', currency: 'USD' }).format(
     value
   );
+
+export function toLocalISODate(date) {
+  const timeZoneOffset = new Date().getTimezoneOffset() * 60000;
+  return new Date(new Date(date) - timeZoneOffset).toISOString().slice(0, 10);
+}
+
+export function fromToday(numDays, withTime = false) {
+  const date = add(new Date(), { days: numDays });
+  if (!withTime) date.setUTCHours(0, 0, 0, 0);
+  return date.toISOString().slice(0, -1);
+}

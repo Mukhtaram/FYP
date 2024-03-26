@@ -34,5 +34,4 @@ function useDarkMode() {
         throw new Error("DarkModeContext was used outside of DarkModeProvider")
     return context;
 }
-// eslint-disable-next-line react-refresh/only-export-components
-export { DarkModeProvider, useDarkMode }
+export { DarkModeProvider, useDarkMode, DarkModeContext };
