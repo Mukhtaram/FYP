@@ -1236,7 +1236,9 @@ import {
 } from "react-icons/hi2";
 
 import { ArrowContainer, Popover } from "react-tiny-popover";
+
 import { DayPicker } from "react-day-picker";
+
 
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { formatCurrency, subtractDates } from "../../utils/helpers";
@@ -1640,6 +1642,7 @@ function CreateBookingForm() {
                             }}
                             footer={<FooterDatePicker range={range} />}
                         />
+
                     </FormRow>
 
                     <FormRow error={errors?.endDate?.message}>
@@ -1831,6 +1834,7 @@ function CreateBookingForm() {
                                 />
                             )}
                         />
+                        {/* comment */}
                         <DayPicker
                             mode="range"
                             modifiers={{ booked: bookedDatesForCabin }}
@@ -1850,6 +1854,7 @@ function CreateBookingForm() {
                             }}
                             footer={<FooterDatePicker range={range} />}
                         />
+
                     </FormRowVertical>
 
                     <FormRowVertical error={errors?.endDate?.message}>
