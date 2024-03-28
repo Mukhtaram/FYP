@@ -1834,6 +1834,7 @@ function CreateBookingForm() {
                                 />
                             )}
                         />
+                        {/* comment */}
                         <DayPicker
                             mode="range"
                             modifiers={{ booked: bookedDatesForCabin }}
