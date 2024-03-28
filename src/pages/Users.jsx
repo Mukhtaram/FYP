@@ -9,7 +9,6 @@ function NewUsers() {
       <MainHeading>
         <Heading as="h1">
           <HiOutlineUsers size="31px" style={{ marginRight: '8px' }} /><span>Create a new user</span>
-
         </Heading>
       </MainHeading>
       <SignupForm />

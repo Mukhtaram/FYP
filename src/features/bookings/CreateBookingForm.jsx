@@ -1287,7 +1287,7 @@ function CreateBookingForm() {
             cabinPrice: 0,
             discount: 0,
             observations: "",
-            extraPrice: 0,
+            extrasPrice: 0,
             totalPrice: 0,
             hasBreakfast: false,
             isPaid: false,
@@ -1376,14 +1376,14 @@ function CreateBookingForm() {
         ? cabinInput.regularPrice * numNightsInput
         : 0;
 
-    const extraPriceInput = hasBreakfast
+    const extrasPriceInput = hasBreakfast
         ? numNightsInput * settings.breakfastPrice * Number(numGuestInput)
         : 0;
 
     const discountInput = cabinInput ? cabinInput.discount : 0;
 
     const totalPriceInput =
-        numNightsInput > 0 ? cabinPriceInput + extraPriceInput - discountInput : 0;
+        numNightsInput > 0 ? cabinPriceInput + extrasPriceInput - discountInput : 0;
 
     const bookedDatesForCabin = bookedDates?.flatMap(({ startDate, endDate }) => {
         const start = parseISO(startDate);
@@ -1475,10 +1475,10 @@ function CreateBookingForm() {
         const cabinPrice =
             (reservedCabin.regularPrice - reservedCabin.discount) * numNightsInput;
 
-        const extraPrice =
+        const extrasPrice =
             numNightsInput * settings.breakfastPrice * Number(numGuestInput);
 
-        const totalPrice = cabinPrice + extraPrice;
+        const totalPrice = cabinPrice + extrasPrice;
 
         const finalData = {
             ...data,
@@ -1492,7 +1492,7 @@ function CreateBookingForm() {
             hasBreakfast,
             isPaid,
             cabinPrice,
-            extraPrice,
+            extrasPrice,
             totalPrice,
             status: "unconfirmed",
         };
@@ -1500,6 +1500,7 @@ function CreateBookingForm() {
         createBooking(finalData, {
             onSuccess: () => {
                 handleReset();
+                navigate('/bookings');
             },
         });
     }
@@ -1725,7 +1726,7 @@ function CreateBookingForm() {
                             </FormRow>
 
                             <FormRow label="Extra Price">
-                                <Input disabled value={formatCurrency(extraPriceInput)} />
+                                <Input disabled value={formatCurrency(extrasPriceInput)} />
                             </FormRow>
 
                             <FormRow label="Total Price">
@@ -1940,7 +1941,7 @@ function CreateBookingForm() {
                             </FormRowVertical>
 
                             <FormRowVertical label="Extra Price">
-                                <Input disabled value={formatCurrency(extraPriceInput)} />
+                                <Input disabled value={formatCurrency(extrasPriceInput)} />
                             </FormRowVertical>
 
                             <FormRowVertical label="Total Price">

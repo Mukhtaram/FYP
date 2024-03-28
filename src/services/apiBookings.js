@@ -2,7 +2,6 @@ import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 import { PAGE_SIZE } from "../utils/constants"
 
-
 export async function getBookings({ filter, sortBy, page }) {
   let query = supabase.
     from('bookings')
@@ -174,7 +173,6 @@ export async function createBooking(newBooking) {
       console.error(error);
       throw new Error("Booking could not be created");
     }
-
     return data;
   }
 }
