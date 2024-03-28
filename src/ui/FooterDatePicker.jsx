@@ -41,3 +41,4 @@ function FooterDatePicker({ range }) {
 }
 
 export default FooterDatePicker;
+
