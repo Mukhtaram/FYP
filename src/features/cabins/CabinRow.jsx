@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers"
 import CreateCabinForm from "./CreateCabinForm";
 import { useDeleteCabin } from "./useDeleteCabin";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { HiPencil, HiSquare2Stack, HiTrash, HiEye, HiArrowDownOnSquareStack } from "react-icons/hi2";
 import { useCreateCabin } from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import { useNavigate } from "react-router-dom"
+import CabinDetails from "./CabinDetails";
 
 {/**
   const TableRow = styled.div`
@@ -21,7 +23,19 @@ import Menus from "../../ui/Menus";
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
-`;*/
+`;
+<Modal.Open opens="cabin-details">
+                <Menus.Button icon={<HiEye />}>See Details</Menus.Button>
+              </Modal.Open>
+
+              <Menus.Button
+                icon={<HiArrowDownOnSquareStack />}
+                onClick={() => navigate(`/bookings/new/${cabinId}`)}
+                disabled={isCreating}
+              >
+                Book Cabin
+              </Menus.Button>
+*/
 }
 const Img = styled.img`
   display: block;
@@ -86,11 +100,20 @@ function CabinRow({ cabin }) {
         <Modal>
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
+
             <Menus.List id={cabinId}>
+
+              <Modal.Open opens="cabin-details">
+                <Menus.Button icon={<HiEye />}>See Details</Menus.Button>
+              </Modal.Open>
+
+
+
               <Menus.Button icon={<HiSquare2Stack />}
                 onClick={handleDuplicate}>
                 Duplicate
               </Menus.Button>
+
               <Modal.Open opens="edit">
                 <Menus.Button icon={<HiPencil />}>
                   Edit
@@ -102,12 +125,16 @@ function CabinRow({ cabin }) {
                   Delete
                 </Menus.Button>
               </Modal.Open>
+
             </Menus.List>
 
             <Modal.Window name="edit">
               <CreateCabinForm cabinToEdit={cabin} />
             </Modal.Window>
 
+            <Modal.Window name="cabin-details">
+              <CabinDetails cabin={cabin} />
+            </Modal.Window>
 
             <Modal.Window name='delete'>
               <ConfirmDelete
