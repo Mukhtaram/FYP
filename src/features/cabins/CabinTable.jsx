@@ -8,6 +8,19 @@ import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
 
+const TableHeader = styled.div`
+  display: grid;
+    grid-template-columns: 0.42fr 1.1fr 1.25fr 0.6fr 1.25fr;
+    background-color: #F9FAFB; 
+    color: #4B5563; 
+    padding: 10px;
+    font-weight: 750; 
+    text-transform: uppercase; 
+    border-bottom: 2px solid #E5E7EB;
+    font-size: 17px;
+`;
+
+
 function CabinTable() {
   const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
@@ -30,17 +43,15 @@ function CabinTable() {
 
   return (
     <Menus>
-
       <Table columns='0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'>
-        <Table.Header>
-          <div></div>
+        <TableHeader>
+          <div>Picture</div>
           <div>Cabin</div>
           <div>Capacity</div>
           <div>Price</div>
           <div>Discount</div>
           <div></div>
-        </Table.Header>
-
+        </TableHeader>
         <Table.Body
           //data={cabins}
           data={sortedCabins}
