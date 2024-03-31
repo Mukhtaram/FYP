@@ -67,6 +67,7 @@ const Discount = styled.div`
 function CabinRow({ cabin }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin()
+  const navigate = useNavigate();
   const {
     id: cabinId,
     name,
@@ -107,7 +108,13 @@ function CabinRow({ cabin }) {
                 <Menus.Button icon={<HiEye />}>See Details</Menus.Button>
               </Modal.Open>
 
-
+              <Menus.Button
+                icon={<HiArrowDownOnSquareStack />}
+                onClick={() => navigate(`/bookings/new/${cabinId}`)}
+                disabled={isCreating}
+              >
+                Book Cabin
+              </Menus.Button>
 
               <Menus.Button icon={<HiSquare2Stack />}
                 onClick={handleDuplicate}>

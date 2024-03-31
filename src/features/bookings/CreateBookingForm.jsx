@@ -1287,7 +1287,7 @@ function CreateBookingForm() {
             cabinPrice: 0,
             discount: 0,
             observations: "",
-            extraPrice: 0,
+            extrasPrice: 0,
             totalPrice: 0,
             hasBreakfast: false,
             isPaid: false,
@@ -1475,10 +1475,10 @@ function CreateBookingForm() {
         const cabinPrice =
             (reservedCabin.regularPrice - reservedCabin.discount) * numNightsInput;
 
-        const extraPrice =
+        const extrasPrice =
             numNightsInput * settings.breakfastPrice * Number(numGuestInput);
 
-        const totalPrice = cabinPrice + extraPrice;
+        const totalPrice = cabinPrice + extrasPrice;
 
         const finalData = {
             ...data,
@@ -1492,7 +1492,7 @@ function CreateBookingForm() {
             hasBreakfast,
             isPaid,
             cabinPrice,
-            extraPrice,
+            extrasPrice,
             totalPrice,
             status: "unconfirmed",
         };
@@ -1500,6 +1500,7 @@ function CreateBookingForm() {
         createBooking(finalData, {
             onSuccess: () => {
                 handleReset();
+                navigate('/bookings')
             },
         });
     }
