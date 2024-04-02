@@ -134,13 +134,15 @@ function prepareData(startData, stays) {
 }
 
 function DurationChart({ confirmedStays }) {
+  const { isDarkMode } = useDarkMode();
+
   const { isDarkmode } = useDarkMode()
   const startData = isDarkmode ? startDataDark :
     startDataLight
   const data = prepareData(startData, confirmedStays)
   return (
     <ChartBox>
-      <DashboardHeader>Stay duration summary</DashboardHeader>
+      <DashboardHeader isDarkMode={isDarkMode}>Stay duration summary</DashboardHeader>
       <ResponsiveContainer width='100%' height={240}>
         <PieChart>
           <Pie

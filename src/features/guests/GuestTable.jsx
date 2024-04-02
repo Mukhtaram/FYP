@@ -6,20 +6,22 @@ import Pagination from "../../ui/Pagination";
 import { useGuests } from "./useGuests";
 import GuestRow from "./GuestRow";
 import styled from "styled-components";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const TableHeader = styled.div`
   display: grid;
     grid-template-columns: 0.7fr 1.2fr 1.3fr 1.1fr 1.2fr 0.25fr 0.5fr;
-    background-color: #F9FAFB; 
-    color: #4B5563; 
     padding: 10px;
     font-weight: 600; 
     text-transform: uppercase; 
     border-bottom: 2px solid #E5E7EB;
     font-size: 17px;
+    background-color: ${({ isDarkMode }) => isDarkMode ? '#483D8B' : '#F9FAFB'}; 
+  color: ${({ isDarkMode }) => isDarkMode ? '#e5e7eb' : '#374151'};
 `;
 
 function GuestTable() {
+    const { isDarkMode } = useDarkMode();
 
     const { guests, isLoading, count, error } = useGuests();
 
@@ -34,7 +36,7 @@ function GuestTable() {
             <Table
                 columns="0.6fr 1.2fr 1.4fr 1.1fr 1.2fr 0.1fr 0.5fr"
                 mobilecolumns="1fr">
-                <TableHeader>
+                <TableHeader isDarkMode={isDarkMode}>
                     <div>Id</div>
                     <div>Guest</div>
                     <div>email</div>

@@ -49,7 +49,7 @@ function SalesChart({ bookings, numDays }) {
 
   return (
     <StyledSalesChart>
-      <DashboardHeader>Sales from {format(allDates.
+      <DashboardHeader isDarkMode={isDarkMode}>Sales from {format(allDates.
         at(0), "MMM dd yyyy")} &mdash; {format(allDates.
           at(-1), 'MMM dd yyyy')}
       </DashboardHeader>

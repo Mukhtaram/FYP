@@ -7,23 +7,25 @@ import { useCabins } from "./useCabins";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
 import Empty from "../../ui/Empty";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const TableHeader = styled.div`
   display: grid;
     grid-template-columns: 0.42fr 1.1fr 1.25fr 0.6fr 1.25fr;
-    background-color: #F9FAFB; 
-    color: #4B5563; 
     padding: 10px;
     font-weight: 750; 
     text-transform: uppercase; 
     border-bottom: 2px solid #E5E7EB;
     font-size: 17px;
+    background-color: ${({ isDarkMode }) => isDarkMode ? '#483D8B' : '#F9FAFB'}; 
+  color: ${({ isDarkMode }) => isDarkMode ? '#e5e7eb' : '#374151'};
 `;
 
 
 function CabinTable() {
   const { isLoading, cabins } = useCabins();
   const [searchParams] = useSearchParams();
+  const { isDarkMode } = useDarkMode();
 
   if (isLoading) return <Spinner />
   if (!cabins.length) return
@@ -44,7 +46,7 @@ function CabinTable() {
   return (
     <Menus>
       <Table columns='0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'>
-        <TableHeader>
+        <TableHeader isDarkMode={isDarkMode}>
           <div>Picture</div>
           <div>Cabin</div>
           <div>Capacity</div>

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
+
+
 const MainHeading = styled.div`
-  background-color: lightblue;
   padding: 24px 32px;
   margin-bottom: 24px;
   border-radius: 12px;
@@ -11,6 +12,10 @@ const MainHeading = styled.div`
   width: 100%;
   font-size:2rem;
   font-weight: 600;
+  background-color: ${({ isDarkMode }) => isDarkMode ? '#483D8B' : 'lightblue'};
+  color: ${({ isDarkMode }) => isDarkMode ? '#e5e7eb' : '#374151'};
+
+
 `;
 
 export default MainHeading;
