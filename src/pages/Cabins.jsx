@@ -5,12 +5,14 @@ import AddCAbin from "../features/cabins/AddCabin";
 import CabinTableOperations from "../features/cabins/CabinTableOperation";
 import MainHeading from "../ui/MainHeading";
 import { HiOutlineHomeModern } from 'react-icons/hi2'
+import { useDarkMode } from '../context/DarkModeContext';
 
 
 function Cabins() {
+  const { isDarkMode } = useDarkMode();
   return (
     <>
-      <MainHeading>
+      <MainHeading isDarkMode={isDarkMode}>
         <Heading as="h1">
           <HiOutlineHomeModern size="31px" style={{ marginRight: '8px' }} /><span>All cabins</span>
         </Heading>

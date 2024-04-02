@@ -3,6 +3,7 @@ import LoginForm from "../features/authentication/LoginForm";
 import Logo from "../ui/Logo";
 import Heading from "../ui/Heading";
 import MainHeading from "../ui/MainHeading";
+import { useDarkMode } from '../context/DarkModeContext';
 
 const LoginLayout = styled.main`
   min-height: 100vh;
@@ -15,10 +16,12 @@ const LoginLayout = styled.main`
 `;
 
 function Login() {
+  const { isDarkMode } = useDarkMode();
+
   return (
     <LoginLayout>
       <Logo />
-      <MainHeading>
+      <MainHeading isDarkMode={isDarkMode}>
         <Heading as="h4">Log in to your account</Heading>
       </MainHeading>
       <LoginForm />

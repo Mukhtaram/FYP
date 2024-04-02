@@ -4,6 +4,7 @@ import Row from "../../ui/Row";
 import Spinner from "../../ui/Spinner";
 import TodayItem from "./TodayItem";
 import DashboardHeader from "../../ui/DashboardHeader"
+import { useDarkMode } from '../../context/DarkModeContext';
 
 
 const StyledToday = styled.div`
@@ -38,11 +39,13 @@ const NoActivity = styled.p`
 `;
 
 function TodayActivity() {
+  const { isDarkMode } = useDarkMode();
+
   const { activities, isLoading } = useTodayActivity()
   return (
     <StyledToday>
       <Row type="horizontal">
-        <DashboardHeader>Today</DashboardHeader>
+        <DashboardHeader isDarkMode={isDarkMode}>Today</DashboardHeader>
 
       </Row>
 

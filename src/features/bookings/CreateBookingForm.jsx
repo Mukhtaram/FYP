@@ -1219,6 +1219,7 @@ import ButtonGroup from "../../ui/ButtonGroup";
 import PopoverContent from "../../ui/PopoverContent";
 import FooterDatePicker from "../../ui/FooterDatePicker";
 import MessageAvailable from "./MessageAvailable";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 import {
     isBefore,
@@ -1246,8 +1247,11 @@ import { usePopover } from "../../hooks/usePopover";
 import { useDatePicker } from "../../hooks/useDatePicker";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { modifiersStylesDatePicker, windowSizes } from "../../utils/constants";
+import MainHeading from "../../ui/MainHeading";
 
 function CreateBookingForm() {
+    const { isDarkMode } = useDarkMode();
+
     const { createBooking, isLoading: isCreating } = useCreateBookings();
 
     const { settings, isLoading: isLoadingSettings } = useSettings();
@@ -1468,7 +1472,7 @@ function CreateBookingForm() {
     }
 
     function onSubmit(data) {
-        // selected Cabin
+
         const cabinIdNum = Number(data.cabinId);
         const reservedCabin = cabins.find((cabin) => cabin.id === cabinIdNum);
 
@@ -1518,55 +1522,58 @@ function CreateBookingForm() {
             </div>
 
             <Row type="form" style={{ justifyContent: 'flex-start', textAlign: 'left' }}>
-                <Heading as="h1">
-                    <span>
-                        <HiOutlineSquare3Stack3D />
-                    </span>
-                    {cabinIdInput ? `Book Cabin ${cabinInput?.name}` : "Book Cabin"}
-                    <span>
-                        <Popover
-                            isOpen={isPopoverOpen}
-                            positions={
-                                width >= windowSizes.tablet
-                                    ? ["right", "bottom"]
-                                    : ["bottom", "right"]
-                            }
-                            padding={10}
-                            reposition={false}
-                            onClickOutside={closePopover}
-                            parentElement={boxContainerPopoverRef.current}
-                            content={({ position, childRect, popoverRect }) => (
-                                <ArrowContainer
-                                    position={position}
-                                    childRect={childRect}
-                                    popoverRect={popoverRect}
-                                    arrowColor={"var(--color-grey-400)"}
-                                    arrowSize={8}
-                                >
-                                    <PopoverContent>
-                                        &#10095; First, check if the cabin is available for the
-                                        selected dates. Then fill out the rest of the form to
-                                        complete your booking.
-                                    </PopoverContent>
-                                </ArrowContainer>
-                            )}
-                        >
-                            <ButtonText
-                                type="form"
-                                onClick={openPopover}
-                                onMouseEnter={openPopover}
-                                onMouseLeave={closePopover}
-                                whileHover={{ scale: 1.8 }}
-                                whileTap={
-                                    width >= windowSizes.tablet ? { scale: 1 } : { scale: 2 }
+                <MainHeading isDarkMode={isDarkMode}>
+
+                    <Heading as="h1">
+                        <span>
+                            <HiOutlineSquare3Stack3D />
+                        </span>
+                        {cabinIdInput ? `Book Cabin ${cabinInput?.name}` : "Book Cabin"}
+                        <span>
+                            <Popover
+                                isOpen={isPopoverOpen}
+                                positions={
+                                    width >= windowSizes.tablet
+                                        ? ["right", "bottom"]
+                                        : ["bottom", "right"]
                                 }
-                                transition={{ duration: 0.3, type: "spring", stiffness: 500 }}
+                                padding={10}
+                                reposition={false}
+                                onClickOutside={closePopover}
+                                parentElement={boxContainerPopoverRef.current}
+                                content={({ position, childRect, popoverRect }) => (
+                                    <ArrowContainer
+                                        position={position}
+                                        childRect={childRect}
+                                        popoverRect={popoverRect}
+                                        arrowColor={"var(--color-grey-400)"}
+                                        arrowSize={8}
+                                    >
+                                        <PopoverContent>
+                                            &#10095; First, check if the cabin is available for the
+                                            selected dates. Then fill out the rest of the form to
+                                            complete your booking.
+                                        </PopoverContent>
+                                    </ArrowContainer>
+                                )}
                             >
-                                <HiOutlineQuestionMarkCircle />
-                            </ButtonText>
-                        </Popover>
-                    </span>
-                </Heading>
+                                <ButtonText
+                                    type="form"
+                                    onClick={openPopover}
+                                    onMouseEnter={openPopover}
+                                    onMouseLeave={closePopover}
+                                    whileHover={{ scale: 1.8 }}
+                                    whileTap={
+                                        width >= windowSizes.tablet ? { scale: 1 } : { scale: 2 }
+                                    }
+                                    transition={{ duration: 0.3, type: "spring", stiffness: 500 }}
+                                >
+                                    <HiOutlineQuestionMarkCircle />
+                                </ButtonText>
+                            </Popover>
+                        </span>
+                    </Heading>
+                </MainHeading>
             </Row>
 
             <MessageAvailable
