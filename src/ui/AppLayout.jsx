@@ -59,22 +59,22 @@ const Container = styled.div`
 `;
 
 function AppLayout() {
-    const { isSidebarOpen } = useOpenSidebar();
-    return (
-        <StyledAppLayout isSidebarOpen={isSidebarOpen}>
-            <aside>
-                <Sidebar />
-            </aside>
-            <header>
-                <Header />
-            </header>
-            <Main>
-                <Container>
-                    <Outlet />
-                </Container>
-            </Main>
-        </StyledAppLayout>
-    );
+  const { isSidebarOpen } = useOpenSidebar();
+  return (
+    <StyledAppLayout isSidebarOpen={isSidebarOpen}>
+      <aside>
+        <Sidebar />
+      </aside>
+      <header>
+        <Header />
+      </header>
+      <Main>
+        <Container>
+          <Outlet />
+        </Container>
+      </Main>
+    </StyledAppLayout>
+  );
 }
 
 export default AppLayout;

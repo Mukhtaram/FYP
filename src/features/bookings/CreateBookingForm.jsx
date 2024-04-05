@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 {/*
 import { useState } from "react";
 import { differenceInDays, parseISO } from "date-fns";
@@ -1247,9 +1245,12 @@ import { usePopover } from "../../hooks/usePopover";
 import { useDatePicker } from "../../hooks/useDatePicker";
 import { useWindowSize } from "../../hooks/useWindowSize";
 import { modifiersStylesDatePicker, windowSizes } from "../../utils/constants";
+import { useState } from "react"
 import MainHeading from "../../ui/MainHeading";
 
 function CreateBookingForm() {
+    const [extraExpences, setExtraExpences] = useState([]);
+
     const { isDarkMode } = useDarkMode();
 
     const { createBooking, isLoading: isCreating } = useCreateBookings();
@@ -1387,7 +1388,7 @@ function CreateBookingForm() {
     const discountInput = cabinInput ? cabinInput.discount : 0;
 
     const totalPriceInput =
-        numNightsInput > 0 ? cabinPriceInput + extraPriceInput - discountInput : 0;
+        numNightsInput > 0 ? cabinPriceInput + extraPriceInput - discountInput + Number(extraExpences) : 0;
 
     const bookedDatesForCabin = bookedDates?.flatMap(({ startDate, endDate }) => {
         const start = parseISO(startDate);
@@ -1493,6 +1494,7 @@ function CreateBookingForm() {
             cabinId: Number(data.cabinId),
             guestId: Number(data.guestId),
             observations: data.observations,
+            extraExpences: Number(extraExpences),
             hasBreakfast,
             isPaid,
             cabinPrice,
@@ -1583,7 +1585,11 @@ function CreateBookingForm() {
             />
 
             {width >= windowSizes.tablet ? (
+
                 <Form type="regular" onSubmit={handleSubmit(onSubmit, onError)}>
+
+
+
                     <FormRow label="Cabin" error={errors?.cabinId?.message}>
                         <Controller
                             name="cabinId"
@@ -1734,6 +1740,20 @@ function CreateBookingForm() {
 
                             <FormRow label="Extra Price">
                                 <Input disabled value={formatCurrency(extraPriceInput)} />
+                            </FormRow>
+                            <FormRow label="Extra Expences" error={errors?.extraExpences?.message}>
+                                <Input
+                                    type="number"
+                                    id="extraExpenсes"
+                                    {...register("extraExpences", {
+                                        min: {
+                                            value: 0,
+                                            message: 'Extra expenses should not be negative'
+                                        }
+                                    })}
+                                    value={extraExpences}
+                                    onChange={(e) => setExtraExpences(e.target.value)}
+                                />
                             </FormRow>
 
                             <FormRow label="Total Price">
