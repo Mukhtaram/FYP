@@ -6,10 +6,8 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern,
 } from "react-icons/hi2";
-
 import DataItem from "../../ui/DataItem";
 import { Flag } from "../../ui/Flag";
-
 import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
 
 const StyledBookingDataBox = styled.section`
@@ -103,6 +101,9 @@ const Footer = styled.footer`
 
 // A purely presentational component
 function BookingDataBox({ booking }) {
+
+
+
   const {
     created_at,
     startDate,
@@ -118,7 +119,6 @@ function BookingDataBox({ booking }) {
     guests: { fullName: guestName, email, country, countryFlag, nationalID },
     cabins: { name: cabinName },
   } = booking;
-
   return (
     <StyledBookingDataBox>
       <Header>
@@ -163,6 +163,7 @@ function BookingDataBox({ booking }) {
           {hasBreakfast ? "Yes" : "No"}
         </DataItem>
 
+
         <Price isPaid={isPaid}>
           <DataItem icon={<HiOutlineCurrencyDollar />} label={`Total price`}>
             {formatCurrency(totalPrice)}
@@ -170,7 +171,7 @@ function BookingDataBox({ booking }) {
             {hasBreakfast &&
               ` (${formatCurrency(cabinPrice)} cabin + ${formatCurrency(
                 extrasPrice
-              )} breakfast)`}
+              )} breakfast )`}
           </DataItem>
 
           <p>{isPaid ? "Paid" : "Will pay at property"}</p>
