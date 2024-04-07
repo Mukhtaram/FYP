@@ -1249,7 +1249,7 @@ import { useState } from "react"
 import MainHeading from "../../ui/MainHeading";
 
 function CreateBookingForm() {
-    const [extraExpences, setExtraExpences] = useState([]);
+    const [extraExpenses, setExtraExpenses] = useState([]);
 
     const { isDarkMode } = useDarkMode();
 
@@ -1388,7 +1388,7 @@ function CreateBookingForm() {
     const discountInput = cabinInput ? cabinInput.discount : 0;
 
     const totalPriceInput =
-        numNightsInput > 0 ? cabinPriceInput + extraPriceInput - discountInput + Number(extraExpences) : 0;
+        numNightsInput > 0 ? cabinPriceInput + extraPriceInput - discountInput + Number(extraExpenses) : 0;
 
     const bookedDatesForCabin = bookedDates?.flatMap(({ startDate, endDate }) => {
         const start = parseISO(startDate);
@@ -1494,7 +1494,7 @@ function CreateBookingForm() {
             cabinId: Number(data.cabinId),
             guestId: Number(data.guestId),
             observations: data.observations,
-            extraExpences: Number(extraExpences),
+            extraExpenses: Number(extraExpenses),
             hasBreakfast,
             isPaid,
             cabinPrice,
@@ -1741,18 +1741,18 @@ function CreateBookingForm() {
                             <FormRow label="Extra Price">
                                 <Input disabled value={formatCurrency(extraPriceInput)} />
                             </FormRow>
-                            <FormRow label="Extra Expences" error={errors?.extraExpences?.message}>
+                            <FormRow label="Extra Expenses" error={errors?.extraExpenses?.message}>
                                 <Input
                                     type="number"
-                                    id="extraExpenсes"
-                                    {...register("extraExpences", {
+                                    id="extraExpenses"
+                                    {...register("extraExpenses", {
                                         min: {
                                             value: 0,
                                             message: 'Extra expenses should not be negative'
                                         }
                                     })}
-                                    value={extraExpences}
-                                    onChange={(e) => setExtraExpences(e.target.value)}
+                                    value={extraExpenses}
+                                    onChange={(e) => setExtraExpenses(e.target.value)}
                                 />
                             </FormRow>
 

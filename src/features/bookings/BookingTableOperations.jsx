@@ -19,6 +19,7 @@ function BookingTableOperations() {
         options={[
           { value: "startDate-desc", label: "Sort by date (recent first)" },
           { value: "startDate-asc", label: "Sort by date (earlier first)" },
+          { value: "excludePastBookings", label: "Upcoming bookings" },
           {
             value: "totalPrice-desc",
             label: "Sort by amount (high first)",
