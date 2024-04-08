@@ -74,6 +74,22 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
         />
       </FormRow>
 
+      <FormRow label='Room Type' error={errors?.roomType?.message}>
+        <select
+          id="roomType"
+          disabled={isWorking}
+          {...register("roomType", {
+            required: "This field is required"
+          })}
+        >
+          <option value="">Select Room Type</option>
+          <option value="family">Family</option>
+          <option value="luxury">Luxury</option>
+          <option value="double">Double</option>
+          {/* Add more options as needed */}
+        </select>
+      </FormRow>
+
       <FormRow label='Regular price' error={errors?.regularPrice?.message}>
         <Input
           type="number"

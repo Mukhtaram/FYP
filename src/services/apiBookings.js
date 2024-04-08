@@ -1,34 +1,33 @@
+/* eslint-disable no-unused-vars */
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 import { PAGE_SIZE } from "../utils/constants"
 
-
 export async function getBookings({ filter, sortBy, page }) {
-  let query = supabase.
-    from('bookings')
-    .select(" id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice,  cabins(name), guests(fullName, email)",
-      { count: "exact" }
-    );
-  //filter
-  if (filter) {
-    query = query[filter.method || "eq"](filter.field, filter.value)
+  let query = supabase
+    .from('bookings')
+    .select("id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)", { count: "exact" });
+  switch (sortBy.field) {
+    case 'excludePastBookings':
+      query = query
+        .gte('startDate', getToday())
+        .order('startDate', { ascending: true });
+      break;
+    default:
+      query = query.order(sortBy.field, { ascending: sortBy.direction === "asc" });
   }
-  //sort
-  if (sortBy) {
-    query = query.order(sortBy.field,
-      { ascending: sortBy.direction === "asc" })
-  }
+
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
-    query = query.range(from, to)
+    query = query.range(from, to);
   }
 
   const { data, error, count } = await query;
 
   if (error) {
-    console.error(error)
-    throw new Error("Bookings could not be loaded")
+    console.error(error);
+    throw new Error("Bookings could not be loaded");
   }
   return { data, count };
 }
@@ -101,10 +100,16 @@ export async function getStaysTodayActivity() {
   return data;
 }
 
-export async function updateBooking(id, obj) {
+export async function updateBooking(id, updates) {
+  const { extraExpenses, ...rest } = updates;
+
+  const updateObject = {
+    ...rest,
+    ...(extraExpenses !== undefined && { extraExpenses: Number(extraExpenses) })
+  };
   const { data, error } = await supabase
     .from("bookings")
-    .update(obj)
+    .update(updateObject)
     .eq("id", id)
     .select()
     .single();

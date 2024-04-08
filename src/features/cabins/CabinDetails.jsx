@@ -101,69 +101,74 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function CabinDetails({ cabin, onCloseModal, isLoading }) {
-    const {
-        id: cabinId,
-        name,
-        maxCapacity,
-        regularPrice,
-        discount,
-        image,
-        description,
-    } = cabin;
+  const {
+    id: cabinId,
+    name,
+    maxCapacity,
+    roomType,
+    regularPrice,
+    discount,
+    image,
+    description,
+  } = cabin;
 
-    if (isLoading) {
-        return <Spinner />;
-    }
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-    return (
+  return (
+    <>
+      <StyledCabinDetails>
         <>
-            <StyledCabinDetails>
-                <>
-                    <Img src={image} alt={name} />
-                </>
-
-                <Section>
-                    <Stacked>
-                        <span>Cabin</span>
-                        <span>{name}</span>
-                    </Stacked>
-
-                    <Stacked>
-                        <span>Maximum Capacity</span>
-                        <span>{maxCapacity} guests</span>
-                    </Stacked>
-
-                    <Stacked>
-                        <span>Price</span>
-                        <span>{formatCurrency(regularPrice)}</span>
-                    </Stacked>
-
-                    <Stacked>
-                        <span>Discount</span>
-                        {discount ? (
-                            <Discount>{formatCurrency(discount)}</Discount>
-                        ) : (
-                            <span>&mdash;</span>
-                        )}
-                    </Stacked>
-
-                    <Description>{description}</Description>
-                </Section>
-                <ButtonGroup>
-                    <Button
-                        variation="secondary"
-                        type="reset"
-                        onClick={() => onCloseModal?.()}
-                    >
-                        Close
-                    </Button>
-                    <StyledNavLink to={`/bookings/new/${cabinId}`}>
-                        <Button>Book</Button>
-                    </StyledNavLink>
-                </ButtonGroup>
-            </StyledCabinDetails>
+          <Img src={image} alt={name} />
         </>
-    );
+
+        <Section>
+          <Stacked>
+            <span>Cabin</span>
+            <span>{name}</span>
+          </Stacked>
+
+          <Stacked>
+            <span>Maximum Capacity</span>
+            <span>{maxCapacity} guests</span>
+          </Stacked>
+          <Stacked>
+            <span>Room Type</span>
+            <span>{roomType} </span>
+          </Stacked>
+
+          <Stacked>
+            <span>Price</span>
+            <span>{formatCurrency(regularPrice)}</span>
+          </Stacked>
+
+          <Stacked>
+            <span>Discount</span>
+            {discount ? (
+              <Discount>{formatCurrency(discount)}</Discount>
+            ) : (
+              <span>&mdash;</span>
+            )}
+          </Stacked>
+
+          <Description>{description}</Description>
+        </Section>
+        <ButtonGroup>
+          <Button
+            variation="secondary"
+            type="reset"
+            onClick={() => onCloseModal?.()}
+          >
+            Close
+          </Button>
+          <StyledNavLink to={`/bookings/new/${cabinId}`}>
+            <Button>Book</Button>
+          </StyledNavLink>
+        </ButtonGroup>
+      </StyledCabinDetails>
+    </>
+  );
 }
 
 export default CabinDetails;
