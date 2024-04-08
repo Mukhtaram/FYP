@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers"
 import CreateCabinForm from "./CreateCabinForm";
@@ -46,6 +45,17 @@ const Img = styled.img`
   transform: scale(1.5) translateX(-7px);
 `;
 
+const StyledMenuList = styled(Menus.List)`
+  ${({ isLastRow }) => isLastRow && `
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+    z-index: 1;
+  `}
+`;
+
+
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
@@ -64,7 +74,9 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-function CabinRow({ cabin }) {
+
+
+function CabinRow({ cabin, isLastRow, }) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin()
   const navigate = useNavigate();
@@ -84,7 +96,9 @@ function CabinRow({ cabin }) {
     })
   }
 
-
+  const menuTopStyles = isLastRow
+    ? { position: 'absolute', top: 0, left: 0, zIndex: 1 }
+    : {};
   return (
     <Table.Row>
       <Img src={image} />
@@ -99,10 +113,11 @@ function CabinRow({ cabin }) {
       }
       <div>
         <Modal>
+
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
 
-            <Menus.List id={cabinId}>
+            <StyledMenuList style={menuTopStyles} isLastRow={isLastRow} id={cabinId}>
 
               <Modal.Open opens="cabin-details">
                 <Menus.Button icon={<HiEye />}>See Details</Menus.Button>
@@ -133,7 +148,7 @@ function CabinRow({ cabin }) {
                 </Menus.Button>
               </Modal.Open>
 
-            </Menus.List>
+            </StyledMenuList>
 
             <Modal.Window name="edit">
               <CreateCabinForm cabinToEdit={cabin} />
