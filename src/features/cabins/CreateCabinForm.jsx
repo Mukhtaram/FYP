@@ -83,9 +83,10 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
           })}
         >
           <option value="">Select Room Type</option>
-          <option value="family">Family</option>
-          <option value="luxury">Luxury</option>
-          <option value="double">Double</option>
+          <option value="DeluxeDouble">Deluxe Double  Room</option>
+          <option value="TwinRoom">Twin Room</option>
+          <option value="double">Classic Double Room</option>
+          <option value="MountainView">Mountain View Room</option>
           {/* Add more options as needed */}
         </select>
       </FormRow>
@@ -114,11 +115,13 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
           {...register("discount", {
             required: "This field is required",
             validate: (value) =>
-              value <= getValues().regularPrice ||
+              Number(value) < Number(getValues().regularPrice) ||
               "Discount should be less than the regular price",
           })}
         />
       </FormRow>
+
+
 
       <FormRow label='Description for the website' error={errors?.description?.message}>
         <Textarea

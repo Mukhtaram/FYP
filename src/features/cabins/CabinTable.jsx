@@ -38,9 +38,11 @@ function CabinTable() {
   const filterValue = searchParams.get('discount') || "all";
   let filterCabins;
   if (filterValue === "all") filterCabins = cabins;
-  if (filterValue === "Family") filterCabins = cabins.filter(cabin => cabin.roomType === 'family');
-  if (filterValue === "Luxury") filterCabins = cabins.filter(cabin => cabin.roomType === 'luxury');
+  if (filterValue === "DeluxeDouble") filterCabins = cabins.filter(cabin => cabin.roomType === 'DeluxeDouble');
+  if (filterValue === "TwinRoom") filterCabins = cabins.filter(cabin => cabin.roomType === 'TwinRoom');
   if (filterValue === "Double") filterCabins = cabins.filter(cabin => cabin.roomType === 'double');
+  if (filterValue === "MountainView") filterCabins = cabins.filter(cabin => cabin.roomType === 'MountainView');
+
 
   //for Sorting
   const sortBy = searchParams.get('sortBy') || "startDate-asc"

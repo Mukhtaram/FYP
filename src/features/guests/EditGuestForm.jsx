@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Controller, useForm } from "react-hook-form";
 
 import Form from "../../ui/Form";
@@ -21,7 +20,6 @@ import { windowSizes } from "../../utils/constants";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
-    // remove bookings from the object
     const { id, bookings, ...editValues } = guestToEdit;
     const { fullName } = editValues;
 
@@ -34,9 +32,7 @@ function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
     } = useForm({ defaultValues: editValues });
 
     const { updateGuest, isUpdating } = useUpdateGuest();
-
     const { countries, isLoading: isLoadingCountries } = useCountries();
-
     const { width } = useWindowSize();
 
     if (isLoadingCountries) {
@@ -57,7 +53,6 @@ function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
 
     const guestValidation = {
         fullName: { required: "This field is required" },
-
         email: {
             required: "Email is required",
             pattern: {
@@ -65,10 +60,7 @@ function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
                 message: "Invalid email address",
             },
         },
-
-        nationalID: { required: "National ID is required" },
-
-        nationality: { required: "National ID is required" },
+        nationality: { required: "Nationality is required" },
     };
 
     function onSubmit(data) {
@@ -137,7 +129,7 @@ function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
                             disabled={isUpdating}
                             type="text"
                             id="nationalID"
-                            {...register("nationalID", guestValidation.nationalID)}
+                            {...register("nationalID")}
                         />
                     </FormRow>
 
@@ -173,7 +165,6 @@ function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
                     </FormRow>
                 </Form>
             ) : (
-                // MOBILE
                 <Form
                     onSubmit={handleSubmit(onSubmit, onError)}
                     type={onCloseModal ? "modal" : "regular"}
@@ -196,22 +187,16 @@ function EditGuestForm({ onCloseModal, guestToEdit = {} }) {
                         />
                     </FormRowVertical>
 
-                    <FormRowVertical
-                        label="national ID"
-                        error={errors?.nationalID?.message}
-                    >
+                    <FormRowVertical label="National ID" error={errors?.nationalID?.message}>
                         <Input
                             disabled={isUpdating}
                             type="text"
                             id="nationalID"
-                            {...register("nationalID", guestValidation.nationalID)}
+                            {...register("nationalID")}
                         />
                     </FormRowVertical>
 
-                    <FormRowVertical
-                        label="Nationality"
-                        error={errors?.nationality?.message}
-                    >
+                    <FormRowVertical label="Nationality" error={errors?.nationality?.message}>
                         <Controller
                             name="nationality"
                             control={control}

@@ -7,9 +7,10 @@ function CabinTableOperations() {
         <TableOperations>
             <Filter filterField='discount' options={[
                 { value: 'all', label: 'All' },
-                { value: 'Family', label: 'Family' },
-                { value: 'Luxury', label: 'Luxury' },
-                { value: 'Double', label: 'Double' },
+                { value: 'DeluxeDouble', label: 'Deluxe Double' },
+                { value: 'TwinRoom', label: 'Twin' },
+                { value: 'Double', label: 'Classic Double' },
+                { value: 'MountainView', label: 'Mountain View' }
             ]} />
 
             <SortBy options={[
