@@ -1,8 +1,6 @@
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
-
 import GlobalStyles from './styles/GlobalStyles'
 import Dashboard from "./pages/Dashboard"
 import Guests from "./pages/Guests";
@@ -20,13 +18,14 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { OpenSidebarProvider } from "./context/OpenSidebarContext";
 import NewBooking from "./pages/NewBooking";
+import { Home, Layout, Room, ProductDetails, Hero, BookTheRoom } from "../src/client/router"
 
+const managerPaths = ['/login', '/reservation', '/dashboard', '/guests', '/bookings', '/cabins', '/users', '/settings', '/account'];
 
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      //staleTime: 60 * 1000,
       scaleTime: 0,
     },
   },
@@ -37,9 +36,9 @@ function App() {
     <OpenSidebarProvider>
       <DarkModeProvider>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
 
-          <GlobalStyles />
+          {managerPaths.some(path => location.pathname.startsWith(path)) && <GlobalStyles />}
+
           <BrowserRouter>
 
             <Routes>
@@ -47,8 +46,8 @@ function App() {
                 <ProtectedRoute>
                   <AppLayout />
                 </ProtectedRoute>} >
-                <Route index element={<Navigate replace
-                  to="dashboard" />} />
+                {/*<Route index element={<Navigate replace
+                  to="dashboard" />} />*/}
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="guests" element={<Guests />} />
                 <Route path="bookings" element={<Bookings />} />
@@ -64,6 +63,46 @@ function App() {
 
               <Route path="login" element={<Login />} />
               <Route path="*" element={<PageNotFound />} />
+
+              {/**client side */}
+              <Route
+                path='/'
+                element={
+                  <Layout>
+                    <Home />
+                  </Layout>
+                }
+              />
+
+              <Route
+                path='/rooms'
+                element={
+                  <Layout>
+                    <Hero isHomePage={false} />
+                    <Room />
+                  </Layout>
+                }
+              />
+
+              <Route
+                path='/room-details/:roomId'
+                element={
+                  <Layout>
+                    <ProductDetails />
+                  </Layout>
+                }
+              />
+              <Route
+                path='/reservation/new/:roomId'
+                element={
+                  <Layout>
+                    <div style={{ marginTop: '100px' }}>
+                      <BookTheRoom />
+                    </div>
+
+                  </Layout>
+                }
+              />
             </Routes>
           </BrowserRouter>
 

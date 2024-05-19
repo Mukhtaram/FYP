@@ -143,14 +143,14 @@ function DurationChart({ confirmedStays }) {
   return (
     <ChartBox>
       <DashboardHeader isDarkMode={isDarkMode}>Stay duration summary</DashboardHeader>
-      <ResponsiveContainer width='100%' height={240}>
+      <ResponsiveContainer width='100%' height={220}>
         <PieChart>
           <Pie
             data={data}
             nameKey="duration"
             dataKey="value"
-            innerRadius={85}
-            outerRadius={110}
+            innerRadius={70}
+            outerRadius={100}
             cx="40%"
             cy="50%"
             paddingAngle={3}

@@ -25,6 +25,7 @@ const FilterButton = styled.button`
   border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
+  /* To give the same height as select */
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
 
@@ -33,46 +34,28 @@ const FilterButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
 function Filter({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const currentFilter = searchParams.get(filterField) || options.at(0).value
 
-  function handleClick(option) {
-    searchParams.set(filterField, option.value);
-
-    if (option.method) {
-      searchParams.set(filterField + "Method", option.method);
-    } else {
-      searchParams.delete(filterField + "Method");
-    }
-
-    if (searchParams.get("page")) searchParams.set("page", "1");
+  function handleClick(value) {
+    searchParams.set(filterField, value);
+    if (searchParams.get('page')) searchParams.set("page", 1)
     setSearchParams(searchParams);
   }
-  const currentFilter = searchParams.get(filterField) || options.at(0).value;
-
-  const currentMethod =
-    searchParams.get(filterField + "Method") || options.at(0).method;
-
   return (
     <StyledFilter>
-      {options.map((option) => (
-        <FilterButton
-          onClick={() => handleClick(option)}
-          key={option.value + option.method}
-          active={
-            option.value === currentFilter && option.method === currentMethod
-              ? "true"
-              : undefined
-          }
-          disabled={
-            option.value === currentFilter && option.method === currentMethod
-          }
+      {options.map(option =>
+        <FilterButton key={option.value} onClick={() => handleClick(option.value)}
+          active={option.value === currentFilter}
+          disabled={option.value === currentFilter}
         >
           {option.label}
         </FilterButton>
-      ))}
-    </StyledFilter>
-  );
-}
+      )}
 
-export default Filter;
+    </StyledFilter>
+  )
+}
+export default Filter

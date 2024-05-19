@@ -1,5 +1,4 @@
 import { Controller, useForm } from "react-hook-form";
-
 import { useCreateGuest } from "./useCreateGuest";
 import { useCountries } from "../../hooks/useCountries";
 
@@ -29,9 +28,7 @@ function CreateGuestForm({ onCloseModal }) {
     } = useForm();
 
     const { createGuest, isCreating } = useCreateGuest();
-
     const { countries, isLoading: isLoadingCountries } = useCountries();
-
     const { width } = useWindowSize();
 
     if (isLoadingCountries) {
@@ -52,7 +49,6 @@ function CreateGuestForm({ onCloseModal }) {
 
     const guestValidation = {
         fullName: { required: "This field is required" },
-
         email: {
             required: "Email is required",
             pattern: {
@@ -60,10 +56,7 @@ function CreateGuestForm({ onCloseModal }) {
                 message: "Invalid email address",
             },
         },
-
-        nationalID: { required: "National ID is required" },
-
-        nationality: { required: "National ID is required" },
+        nationality: { required: "Nationality is required" },
     };
 
     function onSubmit(data) {
@@ -124,12 +117,12 @@ function CreateGuestForm({ onCloseModal }) {
                         />
                     </FormRow>
 
-                    <FormRow label="national ID" error={errors?.nationalID?.message}>
+                    <FormRow label="National ID" error={errors?.nationalID?.message}>
                         <Input
                             disabled={isCreating}
                             type="text"
                             id="nationalID"
-                            {...register("nationalID", guestValidation.nationalID)}
+                            {...register("nationalID")}
                         />
                     </FormRow>
 
@@ -165,7 +158,6 @@ function CreateGuestForm({ onCloseModal }) {
                     </FormRow>
                 </Form>
             ) : (
-                // MOBILE
                 <Form
                     onSubmit={handleSubmit(onSubmit, onError)}
                     type={onCloseModal ? "modal" : "regular"}
@@ -188,26 +180,20 @@ function CreateGuestForm({ onCloseModal }) {
                         />
                     </FormRowVertical>
 
-                    <FormRowVertical
-                        label="national ID"
-                        error={errors?.nationalID?.message}
-                    >
+                    <FormRowVertical label="National ID" error={errors?.nationalID?.message}>
                         <Input
                             disabled={isCreating}
                             type="text"
                             id="nationalID"
-                            {...register("nationalID", guestValidation.nationalID)}
+                            {...register("nationalID")}
                         />
                     </FormRowVertical>
 
-                    <FormRowVertical
-                        label="Nationality"
-                        error={errors?.nationality?.message}
-                    >
+                    <FormRowVertical label="Nationality" error={errors?.nationality?.message}>
                         <Controller
                             name="nationality"
                             control={control}
-                            rules={guestValidation}
+                            rules={guestValidation.nationality}
                             render={({ field: { ref, value, onChange } }) => (
                                 <Select
                                     ref={ref}
@@ -231,7 +217,7 @@ function CreateGuestForm({ onCloseModal }) {
                                 Cancel
                             </Button>
                             <Button disabled={isCreating} type="submit">
-                                Update Guest
+                                Add Guest
                             </Button>
                         </ButtonGroup>
                     </FormRowVertical>

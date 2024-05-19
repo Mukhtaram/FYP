@@ -2,11 +2,16 @@
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 import { PAGE_SIZE } from "../utils/constants"
+import { createGuest } from "./apiGuests"; // Update this path to the correct one
+
 
 export async function getBookings({ filter, sortBy, page }) {
   let query = supabase
     .from('bookings')
     .select("id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)", { count: "exact" });
+  if (filter) {
+    query = query[filter.method ? filter.method : "eq"](filter.field, filter.value)
+  }
   switch (sortBy.field) {
     case 'excludePastBookings':
       query = query
